@@ -22,6 +22,11 @@ PCLConverter -lod in.las/.laz/.txt/.pts output.las chuck_size: make LOD
 
 ## changelogs
 
+### version 0.0.2
+
+    - convert data
+    - split data
+
 ### version 0.0.1
 
     - see information of .las/.laz
