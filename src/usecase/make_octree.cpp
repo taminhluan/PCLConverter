@@ -3,6 +3,8 @@
 #include <vector>
 #include <pcl_converter.h>
 
+#include <grid.h>
+
 int make_octree(std::string input_path, unsigned int chunk_size, std::string extension) {
     std::cout << "MAKE OCTREE\n";
     std::cout << input_path <<"\n";
@@ -119,17 +121,14 @@ int make_octree(std::string input_path, unsigned int chunk_size, std::string ext
         p_count++;
     }
 
-    std::ofstream grid_file;
-    grid_file.open("grid_file.txt");
-    for (int i = 0; i < grid_size; i++) {
-        for (int j = 0; j < grid_size; j++) {
-            for (int k = 0; k < grid_size; k++) {
-                grid_file << grid[i * grid_size * grid_size + j * grid_size + k] << " ";
-            }
-            grid_file << "\n";
-        }
+    export_grid(grid, grid_size, "full_grid.txt");
+
+    { // TEST: import export
+        // PASS
+        std::vector<unsigned int> output_grid(grid_size * grid_size * grid_size);
+        import_grid(output_grid, grid_size, "full_grid.txt");
+        export_grid(output_grid, grid_size, "output_grid.txt");
     }
-    grid_file.close();
 
     // close the reader
 
